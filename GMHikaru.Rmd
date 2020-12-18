@@ -23,3 +23,50 @@ kauru = fromJSON(rawToChar(request$content))
 summary(kauru)
 ```
 
+### EXamples from JSONLite Package
+
+```{r}
+jsoncars <- toJSON(mtcars, pretty=TRUE)
+cat(jsoncars)
+```
+```{r}
+# Parse it back
+fromJSON(jsoncars)
+```
+```{r}
+# Parse escaped unicode
+fromJSON('{"city" : "Z\\u00FCrich"}')
+```
+```{r}
+# Decimal vs significant digits
+toJSON(pi, digits=3)
+toJSON(pi, digits=I(3))
+```
+
+```{r}
+## Not run: 
+#retrieve data frame
+data1 <- fromJSON("https://api.github.com/users/hadley/orgs")
+names(data1)
+data1$login
+```
+```{r}
+# Nested data frames:
+data2 <- fromJSON("https://api.github.com/users/hadley/repos")
+names(data2)
+names(data2$owner)
+data2$owner$login
+```
+```{r}
+# Flatten the data into a regular non-nested dataframe
+names(flatten(data2))
+```
+
+```{r}
+# Flatten directly (more efficient):
+data3 <- fromJSON("https://api.github.com/users/hadley/repos", flatten = TRUE)
+identical(data3, flatten(data2))
+
+## End(Not run)
+```
+
