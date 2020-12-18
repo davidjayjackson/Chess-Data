@@ -1,0 +1,25 @@
+---
+title: "Chess.com Player Analysis"
+author: "David Jackson"
+date: "12/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(RSQLite)
+library(httr)
+library(ggplot2)
+library(scales)
+library(jsonlite)
+
+```
+
+### Grab CM Hikauru Data
+
+```{r}
+gmhikauru = GET("https://api.chess.com/pub/GMHikaru")
+kauru = fromJSON(rawToChar(request$content))
+summary(kauru)
+```
+
